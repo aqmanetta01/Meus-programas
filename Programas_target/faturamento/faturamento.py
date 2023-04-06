@@ -1,9 +1,11 @@
-#Este programa tem por finalidade ler um arquivo json contendo o faturamento diário de uma empresa e calcular o valor mínimo, máximo e médio de faturamento diário durante o período.
+#Este programa tem por finalidade ler um arquivo json contendo o faturamento diário de uma empresa
+#e calcular o valor mínimo, máximo e médio de faturamento diário durante o período.
+
 #biblioteca que lê arquivos do tipo json.
 import json
 
 #passagem dos dados no formato json para uma lista em python.
-with open(r"C:\Users\user\Desktop\github\Programas2\Programas_target\faturamento\dados.json") as mjson: 
+with open(r"C:\Users\user\Desktop\github\Meus-programas\Programas_target\faturamento\dados.json") as mjson: 
     dados = json.load(mjson) 
 
 #variáveis iniciais de min, max e média.
