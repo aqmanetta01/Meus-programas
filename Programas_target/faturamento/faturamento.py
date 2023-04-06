@@ -1,3 +1,4 @@
+#Este programa tem por finalidade ler um arquivo json contendo o faturamento diário de uma empresa e calcular o valor mínimo, máximo e médio de faturamento diário durante o período.
 #biblioteca que lê arquivos do tipo json.
 import json
 
