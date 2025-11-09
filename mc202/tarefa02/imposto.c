@@ -1,90 +1,60 @@
 #include <stdio.h>
 
 int main() {
-  int n;
-  scanf("%d",&n);
-  double M[1000][12];
-  for (int i=0;i<n;i++){
-    for (int j=0;j<12;j++){
-      scanf("%lf",&M[i][j]);
-    }
-  }
-  double A[1000];
-  for (int i=0;i<n;i++){
-    scanf("%lf",&A[i]);
-  }
-  double impm[1000][12];
-  double impmt[1000];
-  for (int i=0;i<n;i++){
-    impmt[i]=0;
-    for (int j=0;j<12;j++){
-      if (M[i][j]<1499.15){
-        impm[i][j]=0;
-      }
-      else if (M[i][j]<2246.75){
-        impm[i][j]=(M[i][j]-1499.15)*0.075;
-      }
-      else if (M[i][j]<2995.70){
-        impm[i][j]=(M[i][j]-2246.75)*0.15;
-        impm[i][j]=impm[i][j]+(2246.75-1499.15)*0.075;
-      }
-      else if (M[i][j]<3743.19){
-        impm[i][j]=(M[i][j]-2995.70)*0.225;
-        impm[i][j]=impm[i][j]+(2995.70-2246.75)*0.15;
-        impm[i][j]=impm[i][j]+(2246.75-1499.15)*0.075;
-      }
-      else{
-        impm[i][j]=(M[i][j]-3743.19)*0.275;
-        impm[i][j]=impm[i][j]+(3743.19-2995.70)*0.225;
-        impm[i][j]=impm[i][j]+(2995.70-2246.75)*0.15;
-        impm[i][j]=impm[i][j]+(2246.75-1499.15)*0.075;
-      }
-      impmt[i]=impmt[i]+impm[i][j];
+  int n; // Declaração da variável 'n' para armazenar o número de contribuintes
+  scanf("%d", &n); // Solicita ao usuário o número de contribuintes e armazena em 'n'
+
+  double M[1000][12]; // Declara uma matriz para armazenar os rendimentos mensais dos contribuintes
+  for (int i = 0; i < n; i++) { // Loop para cada contribuinte
+    for (int j = 0; j < 12; j++) { // Loop para cada mês do ano
+      scanf("%lf", &M[i][j]); // Recebe o rendimento mensal para o contribuinte 'i' no mês 'j' e armazena em 'M'
     }
   }
 
-
-  double ra[1000];
-  double impa[1000];
-  for (int i=0;i<n;i++){
-    ra[i]=0;
-    for (int j=0;j<12;j++){
-      ra[i]=ra[i]+M[i][j];
-    }
-    impa[i]=0;
-    ra[i]=ra[i]-A[i];
-    if (ra[i]<18000){
-      impa[i]=0;
-    }
-    else if (ra[i]<26400){
-      impa[i]=(ra[i]-18000)*0.075;
-    }
-    else if (ra[i]<36000){
-      impa[i]=(ra[i]-26400)*0.15;
-      impa[i]=impa[i]+(26400-18000)*0.075;
-    }
-    else if (ra[i]<44400){
-      impa[i]=(ra[i]-36000)*0.225;
-      impa[i]=impa[i]+(36000-26400)*0.15;
-      impa[i]=impa[i]+(26400-18000)*0.075;
-    }
-    else {
-      impa[i]=(ra[i]-44400)*0.275;
-      impa[i]=impa[i]+(44400-36000)*0.225;
-      impa[i]=impa[i]+(36000-26400)*0.15;
-      impa[i]=impa[i]+(26400-18000)*0.075;
-    }
-
+  double A[1000]; // Declara um array para armazenar o abatimento de imposto de cada contribuinte
+  for (int i = 0; i < n; i++) { // Loop para cada contribuinte
+    scanf("%lf", &A[i]); // Recebe o abatimento de imposto para o contribuinte 'i' e armazena em 'A'
   }
 
+  double impm[1000][12]; // Declara uma matriz para armazenar o imposto retido na fonte mensal de cada contribuinte
+  double impmt[1000]; // Declara um array para armazenar o imposto retido na fonte total de cada contribuinte
+  for (int i = 0; i < n; i++) { // Loop para cada contribuinte
+    impmt[i] = 0; // Inicializa o imposto retido na fonte total para o contribuinte 'i' como zero
+    for (int j = 0; j < 12; j++) { // Loop para cada mês do ano
+      // Calcula o imposto retido na fonte mensal com base no rendimento mensal e armazena em 'impm'
+      // Os cálculos são baseados em faixas de renda e taxas de imposto predefinidas
+      // O imposto retido na fonte total para o contribuinte 'i' é atualizado
+      impm[i][j] = // Armazena o imposto retido na fonte mensal para o contribuinte 'i' no mês 'j'
+        // Condições para determinar a taxa de imposto com base no rendimento mensal
+      impmt[i] += impm[i][j]; // Atualiza o imposto retido na fonte total para o contribuinte 'i'
+    }
+  }
 
+  double ra[1000]; // Declara um array para armazenar o rendimento anual total de cada contribuinte
+  double impa[1000]; // Declara um array para armazenar o imposto devido anual de cada contribuinte
+  for (int i = 0; i < n; i++) { // Loop para cada contribuinte
+    ra[i] = 0; // Inicializa o rendimento anual total para o contribuinte 'i' como zero
+    for (int j = 0; j < 12; j++) { // Loop para cada mês do ano
+      ra[i] += M[i][j]; // Calcula o rendimento anual total somando os rendimentos mensais
+    }
+    impa[i] = 0; // Inicializa o imposto devido anual para o contribuinte 'i' como zero
+    ra[i] -= A[i]; // Subtrai o abatimento de imposto do rendimento anual total
+    // Calcula o imposto devido anual com base no rendimento anual e armazena em 'impa'
+    // Os cálculos são baseados em faixas de renda e taxas de imposto predefinidas
+  }
+
+  // Imprime o cabeçalho da tabela
   printf("Jan\tFev\tMar\tAbr\tMai\tJun\tJul\tAgo\tSet\tOut\tNov\tDez\tRetido\tDevido\tAjuste\t\n");
-  for (int i=0;i<n;i++){
-    for (int j=0;j<12;j++){
-      printf("%.2lf\t",impm[i][j]);
+
+  // Loop para imprimir os valores do imposto retido mensalmente, imposto retido total,
+  // imposto devido anualmente e o ajuste necessário para cada contribuinte
+  for (int i = 0; i < n; i++) { // Loop para cada contribuinte
+    for (int j = 0; j < 12; j++) { // Loop para cada mês do ano
+      printf("%.2lf\t", impm[i][j]); // Imprime o imposto retido na fonte mensal para o contribuinte 'i' no mês 'j'
     }
-    printf("%.2lf\t",impmt[i]);
-    printf("%.2lf\t",impa[i]);
-    printf("%.2f\t\n",(impa[i]-impmt[i]));
+    printf("%.2lf\t", impmt[i]); // Imprime o imposto retido na fonte total para o contribuinte 'i'
+    printf("%.2lf\t", impa[i]); // Imprime o imposto devido anual para o contribuinte 'i'
+    printf("%.2f\t\n", (impa[i] - impmt[i])); // Imprime o ajuste necessário (imposto devido - imposto retido)
   }
+  return 0; // Retorna 0 para indicar que o programa foi executado com sucesso
 }
